@@ -5,488 +5,475 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Automatización de Procesos e IA Documental | Ecuacopia</title>
 <meta name="description" content="Automatiza la gestión documental de tu empresa con Inteligencia Artificial. Digitaliza, organiza, encuentra y procesa información en segundos.">
+
+<!-- Fuente Poppins -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<!-- Fuente Montserrat para el Header -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+
 <style>
   :root{
-    --red:#CE0E2D;
-    --red-dark:#A50B23;
-    --dark:#161616;
-    --blue:#155EEF;
-    --blue-dark:#0B3FC2;
-    --blue-light:#EAF1FF;
-    --navy:#0A1834;
-    --bg-soft:#F4F7FC;
+    /* PALETA DE COLORES */
+    --brand-primary: #303ab2; 
+    --brand-dark: #22276E;    
+    --brand-light: #EBECF7;   
+    --brand-accent: #5C67F2;  
+    
+    --dark:#0A0A0A;
+    --navy:#080C1B;
+    --bg-soft:#F4F6F9;
     --gray-bg:#F5F5F5;
     --text:#222222;
     --muted:#5A6472;
     --white:#FFFFFF;
-    --border:#E4E9F2;
+    --border:#E1E5ED;
+
+    /* Header Ecuacopia */
+    --header-dark: #1E1E1E;
+    --header-text: #002D56; 
   }
   *{box-sizing:border-box;margin:0;padding:0;}
-  body{
-    font-family: Arial, Helvetica, "Segoe UI", sans-serif;
-    color:var(--text);
-    background:var(--white);
-    line-height:1.55;
-  }
+  body{ font-family: 'Poppins', sans-serif; color:var(--text); background:var(--bg-soft); line-height:1.6; overflow-x: hidden; }
   a{text-decoration:none;color:inherit;}
   img{max-width:100%;display:block;}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
-  .btn{
-    display:inline-block;
-    background:var(--blue);
-    color:var(--white);
-    font-weight:700;
-    padding:14px 32px;
-    border-radius:8px;
-    border:none;
-    cursor:pointer;
-    font-size:16px;
-    transition:all .18s ease;
-  }
-  .btn:hover{background:var(--blue-dark); transform:translateY(-1px);}
-  .eyebrow{
-    color:var(--blue);
-    font-weight:700;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    font-size:13px;
-    margin-bottom:14px;
-    display:block;
-  }
-  h1,h2,h3{font-family:Arial, Helvetica, sans-serif; font-weight:800; color:var(--navy);}
-  h1{font-size:42px; line-height:1.15; margin-bottom:18px;}
-  h2{font-size:32px; line-height:1.2; margin-bottom:14px;}
-  h3{font-size:19px; margin-bottom:10px; color:var(--navy);}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  
+  .btn{ display:inline-flex; align-items:center; justify-content:center; background:var(--brand-primary); color:var(--white); font-weight:600; padding:16px 36px; border-radius:100px; border:none; cursor:pointer; font-size:16px; transition:all 0.4s cubic-bezier(0.16, 1, 0.3, 1); position: relative; overflow: hidden; }
+  .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transition: all 0.5s ease; }
+  .btn:hover::before { left: 100%; }
+  .btn:hover{ background:var(--brand-dark); transform:translateY(-3px); box-shadow: 0 10px 25px rgba(52, 60, 165, 0.3); }
+  
+  .eyebrow{ color:var(--brand-primary); font-weight:800; letter-spacing:0.1em; text-transform:uppercase; font-size:13px; margin-bottom:16px; display:flex; align-items: center; gap: 8px; }
+  .eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--brand-primary); display: inline-block; }
+  
+  h1,h2,h3{font-family: 'Poppins', sans-serif; color:var(--navy); font-weight: 700; letter-spacing: -0.02em;}
+  h1{ font-size: clamp(2.2rem, 4vw, 3.8rem); line-height: 1.15; margin-bottom: 20px; }
+  h2{font-size: clamp(1.8rem, 3vw, 2.8rem); line-height:1.2; margin-bottom:16px;}
+  h3{font-size:22px; margin-bottom:12px; font-weight: 700;}
   p{color:var(--muted); font-size:16px;}
-  section{padding:64px 0;}
-  .section-head{max-width:680px; margin:0 auto 40px auto; text-align:center;}
-  .section-head p{margin-top:10px;}
+  
+  section{padding:100px 0;}
+  
+  /* =======================================
+     HEADER IDÉNTICO A IMAGEN
+     ======================================= */
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid #ECECEC;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    height: 75px; 
+    font-family: 'Montserrat', sans-serif;
+  }
 
-  /* SITE HEADER (igual al de grupoecuacopia.com) */
-  .site-header{
-    background:var(--white);
-    border-bottom:1px solid #ECECEC;
-    position:sticky;
-    top:0;
-    z-index:200;
+  /* Bloque Izquierdo: Soporte con Texto */
+  .header-left {
+    background-color: var(--header-dark);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    padding: 0 30px;
   }
-  .site-header .wrap{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:14px 24px;
+  .header-left a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.5px;
   }
-  .site-header .brand img{height:38px; width:auto;}
-  .site-header nav{
-    display:flex;
-    align-items:center;
-    gap:26px;
-    flex-wrap:wrap;
+  .header-left svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+  /* Centro: Logo y Menú */
+  .header-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    padding: 0 40px;
+    gap: 50px; 
   }
-  .site-header nav a{
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:.02em;
-    color:var(--text);
-    text-transform:uppercase;
+  .header-logo img { height: 45px; width: auto; }
+  .header-nav { display: flex; align-items: center; gap: 24px; }
+  .header-nav a {
+    font-size: 15px;
+    font-weight: 700;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: color 0.3s ease;
   }
-  .site-header nav a:hover{color:var(--red);}
-  .site-header .soporte-btn{
-    background:var(--dark);
-    color:var(--white);
-    font-size:12.5px;
-    font-weight:700;
-    letter-spacing:.04em;
-    padding:12px 20px;
-    text-transform:uppercase;
-    white-space:nowrap;
+  .header-nav a:hover { color: var(--brand-primary); }
+  .header-nav a .icon-down { width: 14px; height: 14px; stroke-width: 2.5;}
+
+  /* Bloque Derecho: Soporte (Solo icono) */
+  .header-right {
+    background-color: var(--header-dark);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 35px;
   }
-  .site-header .menu-toggle{display:none;}
-  @media (max-width:900px){
-    .site-header nav{
-      display:none;
-      position:absolute;
-      top:100%; left:0; right:0;
-      background:var(--white);
-      flex-direction:column;
-      align-items:flex-start;
-      gap:16px;
-      padding:20px 24px;
-      border-bottom:1px solid #ECECEC;
-    }
-    .site-header nav.open{display:flex;}
-    .site-header .menu-toggle{
-      display:inline-block;
-      background:none;
-      border:none;
-      font-size:24px;
-      cursor:pointer;
-      color:var(--dark);
-      margin-right:10px;
-    }
+  .header-right svg { width: 32px; height: 32px; fill: none; stroke: currentColor; stroke-width: 1.5; }
+
+  /* Botón móvil */
+  .mobile-menu-btn { display: none; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--header-text); padding: 0 20px; }
+
+  @media (max-width: 1200px) {
+    .header-nav { display: none; } 
+    .mobile-menu-btn { display: block; }
+    .header-center { justify-content: space-between; gap: 0;}
+  }
+  @media (max-width: 600px) {
+    .header-left, .header-right { display: none; } 
   }
 
   /* HERO */
-  #hero{
-    background:var(--white);
-    padding:60px 0 80px 0;
-  }
-  .hero-inner{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:44px;
-    align-items:stretch;
-  }
-  .hero-copy{text-align:left;}
-  .hero-card{
-    background:linear-gradient(150deg, var(--blue) 0%, var(--blue-dark) 100%);
-    border-radius:16px;
-    padding:44px 40px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-  }
-  .hero-card .eyebrow{color:#CFE0FF;}
-  .hero-card h1{color:var(--white); margin-bottom:16px;}
-  .hero-card p.lead{
-    color:#DCE7FF;
-    font-size:17px;
-    margin-bottom:24px;
-  }
-  #hero ul{
-    list-style:none;
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-    margin-bottom:30px;
-  }
-  #hero ul li{
-    color:#EEF4FF;
-    font-size:14.5px;
-  }
-  .hero-card .btn{
-    background:var(--white);
-    color:var(--blue);
-    align-self:flex-start;
-  }
-  .hero-card .btn:hover{background:var(--blue-light);}
-  .hero-img{
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 16px 40px rgba(10,24,52,.14);
-  }
-  .hero-img img{
-    width:100%;
-    height:100%;
-    min-height:360px;
-    object-fit:cover;
-    display:block;
-  }
+  #hero{ background:var(--white); padding:80px 0 120px 0; position: relative; overflow: hidden; }
+  #hero::after { content: ''; position: absolute; top: -10%; right: -5%; width: 500px; height: 500px; background: var(--brand-light); border-radius: 50%; z-index: 0; opacity: 0.8; filter: blur(60px); }
+  .hero-inner{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; position: relative; z-index: 2; }
+  .hero-copy h1 span { color: var(--brand-primary); position: relative; }
+  .hero-copy p.lead{ font-size: 18px; color: var(--text); margin-bottom: 32px; }
+  
+  .hero-checklist { list-style: none; margin-bottom: 40px; }
+  .hero-checklist li { font-size: 16px; color: var(--text); margin-bottom: 12px; display: flex; align-items: center; gap: 12px; font-weight: 500; }
+  .hero-checklist li::before { content: '✓'; display: flex; align-items: center; justify-content: center; width: 24px; height: 24px; background: var(--brand-light); color: var(--brand-primary); border-radius: 50%; font-size: 13px; font-weight: bold; }
 
-  .card-img{
-    margin:-28px -24px 18px -24px;
-    border-radius:12px 12px 0 0;
-    overflow:hidden;
-  }
-  .card-img img{
-    width:100%;
-    height:170px;
-    object-fit:cover;
-    display:block;
-  }
-
-  .ia-banner{
-    border-radius:14px;
-    overflow:hidden;
-    margin-bottom:36px;
-    box-shadow:0 10px 28px rgba(10,24,52,.10);
-  }
-  .ia-banner img{
-    width:100%;
-    height:260px;
-    object-fit:cover;
-    display:block;
-  }
-
-  @media (max-width:860px){
-    .hero-inner{grid-template-columns:1fr;}
-    .hero-img{order:-1;}
-    .hero-img img{min-height:240px;}
-  }
+  .hero-visuals { position: relative; height: 520px; border-radius: 24px; overflow: hidden; box-shadow: 0 30px 60px rgba(8, 12, 27, 0.15); }
+  .hero-visuals img { width: 100%; height: 100%; object-fit: cover; }
+  
+  .scanner-laser { position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: var(--brand-accent); box-shadow: 0 0 15px var(--brand-accent), 0 0 30px var(--brand-accent); animation: scan 4s infinite cubic-bezier(0.45, 0.05, 0.55, 0.95); z-index: 10; }
+  @keyframes scan { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+  
+  .floating-badge { position: absolute; bottom: 30px; left: 30px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); padding: 16px 24px; border-radius: 100px; font-weight: 700; font-size: 15px; color: var(--navy); display: flex; align-items: center; gap: 12px; box-shadow: 0 15px 30px rgba(0,0,0,0.1); z-index: 20; border: 1px solid rgba(52, 60, 165, 0.1); }
+  .floating-badge::before { content: ''; display: block; width: 10px; height: 10px; background: #25D366; border-radius: 50%; box-shadow: 0 0 10px #25D366; }
 
   /* DESAFIOS */
-  #desafios{background:var(--bg-soft);}
-  #desafios ul{
-    max-width:720px;
-    margin:0 auto 26px auto;
-    list-style:none;
-  }
-  #desafios ul li{
-    background:var(--white);
-    border-left:4px solid var(--blue);
-    padding:16px 20px;
-    margin-bottom:12px;
-    border-radius:6px;
-    color:var(--text);
-    font-size:15.5px;
-    box-shadow:0 1px 4px rgba(10,24,52,.06);
-  }
-  #desafios .closing{
-    text-align:center;
-    font-weight:700;
-    color:var(--navy);
-    font-size:18px;
-    margin-top:30px;
+  #desafios{ background:var(--navy); color: var(--white); position: relative; }
+  #desafios::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 24px 24px; }
+  .section-head{max-width:700px; margin:0 auto 60px auto; text-align:center; position: relative; z-index: 2;}
+  #desafios h2, #desafios .eyebrow { color: var(--white); }
+  #desafios .eyebrow { color: #A0ABC0; }
+  #desafios .eyebrow::before { background: var(--brand-accent); }
+  #desafios p { color: #A0ABC0; }
+  
+  .desafios-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; position: relative; z-index: 2; }
+  .desafio-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-left: 4px solid transparent; padding: 32px 24px; border-radius: 12px; font-size: 16px; color: var(--white); display: flex; gap: 16px; align-items: flex-start; transition: all 0.3s ease; }
+  .desafio-card:hover { background: rgba(255,255,255,0.06); border-left: 4px solid var(--brand-accent); transform: translateX(5px); }
+  .desafio-card-icon { font-size: 24px; background: rgba(255,255,255,0.05); width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 10px; flex-shrink: 0; }
+  .desafios-closing { text-align: center; margin-top: 50px; position: relative; z-index: 2; }
+
+  /* ── Shimmer text effect ── */
+  .shimmer-text {
+    --offset: calc(3 * 0.5ch);
+    --angle: 295deg;
+    --aurora: linear-gradient(
+      var(--angle),
+      #0000 calc(50% - var(--offset)),
+      #a960ee,
+      #ff333d,
+      #ffcb57,
+      #90e0ff,
+      #0000 calc(50% + var(--offset))
+    );
+    --bg: var(--aurora) 0 0 / 300% 100% no-repeat border-box,
+      linear-gradient(white, white) padding-box;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+    font-weight: 700;
+    background: var(--bg);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    animation: shimmer-anim 4s infinite ease-in-out;
+    line-height: 1.3;
   }
 
-  /* GRIDS */
-  .grid3{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:26px;
+  @keyframes shimmer-anim {
+    0%   { background-position: 100% 0; }
+    50%, 100% { background-position: 0% 0; }
   }
-  .card{
-    background:var(--white);
-    border:1px solid var(--border);
-    border-radius:12px;
-    padding:28px 24px;
-    box-shadow:0 2px 10px rgba(10,24,52,.04);
-    transition:all .2s ease;
-  }
-  .card:hover{box-shadow:0 10px 26px rgba(10,24,52,.10); transform:translateY(-2px);}
-  #solucion{background:var(--white);}
-  #ia{background:var(--bg-soft);}
-  #ia .card{background:var(--white);}
-  #ia .card ul{margin:10px 0 10px 18px; color:var(--muted); font-size:15px;}
-  #ia .card ul li{margin-bottom:4px;}
+
+  /* SOLUCION */
+  #solucion{ background:var(--white); }
+  .solucion-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .solucion-grid .card { position: relative; background:var(--white); border-radius:24px; padding:40px 32px; border: 1px solid var(--border); transition: all 0.4s ease; overflow: hidden; }
+  .solucion-grid .card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(8, 12, 27, 0.08); border-color: transparent; }
+  
+  .step-num { position: absolute; top: -20px; right: -10px; font-size: 140px; font-weight: 900; color: var(--bg-soft); line-height: 1; z-index: 0; transition: color 0.4s ease; }
+  .solucion-grid .card:hover .step-num { color: var(--brand-light); }
+  
+  .card-content { position: relative; z-index: 2; }
+  .card-img{ margin:-40px -32px 32px -32px; border-radius:24px 24px 0 0; overflow:hidden; position: relative; z-index: 2; }
+  .card-img img{ width:100%; height:220px; object-fit:cover; transition: transform 0.6s ease; }
+  .solucion-grid .card:hover .card-img img { transform: scale(1.05); }
+  .solucion-grid .card p { margin-bottom: 12px; font-size: 15.5px; }
+
+  /* IA BENTO UI */
+  #ia{ background:var(--bg-soft); }
+  .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .bento-item { background: var(--white); border-radius: 24px; padding: 48px; border: 1px solid var(--border); }
+
+  /* Bento Chat */
+  .bento-chat { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); border: none; position: relative; overflow: hidden; }
+  .bento-chat::before { content: ''; position: absolute; top: -60px; right: -60px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(92,103,242,0.3), transparent 70%); border-radius: 50%; }
+  .bento-chat h3 { color: var(--white); font-size: 22px; margin-bottom: 8px; }
+  .bento-chat p { color: #9CA3AF; margin-bottom: 20px; }
+  .bento-chat-icon { font-size: 36px; margin-bottom: 16px; display: inline-block; animation: bounce-icon 2s infinite; }
+  @keyframes bounce-icon { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+
+  .chat-bubbles { display: flex; flex-direction: column; gap: 10px; }
+  .bubble { padding: 10px 16px; border-radius: 16px; font-size: 14px; max-width: 90%; line-height: 1.4; }
+  .bubble-user { background: rgba(92,103,242,0.25); color: #c7d2fe; border: 1px solid rgba(92,103,242,0.3); align-self: flex-end; border-bottom-right-radius: 4px; }
+  .bubble-ai { background: rgba(255,255,255,0.08); color: #e2e8f0; border: 1px solid rgba(255,255,255,0.1); align-self: flex-start; border-bottom-left-radius: 4px; }
+  .bubble-ai strong { color: #a5f3fc; }
+
+  /* Bento Speed */
+  .bento-speed { background: var(--white); border: 1px solid var(--border); position: relative; overflow: hidden; }
+  .bento-speed::after { content: ''; position: absolute; bottom: -40px; right: -40px; width: 160px; height: 160px; background: radial-gradient(circle, rgba(52,60,165,0.08), transparent 70%); border-radius: 50%; }
+  .bento-speed h3 { font-size: 22px; margin: 16px 0 8px 0; color: var(--navy); }
+  .bento-speed-header { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 4px; }
+  .speed-badge { background: var(--brand-light); color: var(--brand-primary); font-size: 13px; font-weight: 700; padding: 6px 14px; border-radius: 100px; border: 1px solid rgba(52,60,165,0.15); }
+  .speed-steps { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+  .speed-step { display: flex; align-items: center; gap: 14px; font-size: 15px; font-weight: 500; color: var(--text); }
+  .step-dot { width: 30px; height: 30px; border-radius: 50%; background: var(--brand-primary); color: white; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 4px 12px rgba(52,60,165,0.3); }
+  .speed-note { font-size: 14px; font-weight: 700; color: var(--brand-primary); margin: 0; border-top: 1px solid var(--border); padding-top: 16px; }
+
+
+  .bento-1 { grid-column: span 2; background: #050B14; color: var(--white); display: flex; padding: 0; border: none; overflow: hidden; }
+  .bento-1-content { flex: 1.2; padding: 56px; position: relative; z-index: 2; }
+  .bento-1-content h3 { color: var(--white); font-size: 30px; margin-bottom: 16px; }
+  .bento-1-content p { color: #9CA3AF; font-size: 16px; margin-bottom: 24px; }
+  
+  .bento-1-image { flex: 0.8; position: relative; }
+  .bento-1-image::before { content: ''; position: absolute; top: 0; left: 0; bottom: 0; width: 150px; background: linear-gradient(to right, #050B14, transparent); z-index: 1; }
+  .bento-1-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  
+  .ia-list { margin-bottom: 24px; list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .ia-list.single-col { grid-template-columns: 1fr; }
+  .bento-1 .ia-list li { color: #D1D5DB; }
+  .bento-1 .ia-list li::before { color: var(--brand-accent); }
+  .ia-list li { font-size: 15px; color: var(--muted); padding-left: 24px; position: relative; font-weight: 500; }
+  .ia-list li::before { content: '→'; position: absolute; left: 0; color: var(--brand-primary); font-weight: bold; }
 
   /* BENEFICIOS */
-  #beneficios{background:var(--white);}
-  .grid5{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:18px;
-  }
-  #beneficios .card{text-align:center;}
-  .icon-badge{
-    width:40px; height:40px; border-radius:10px;
-    background:var(--blue-light); color:var(--blue);
-    display:flex; align-items:center; justify-content:center;
-    font-weight:800; font-size:17px;
-    margin:0 auto 14px auto;
-  }
-  #beneficios .card p{font-size:14.5px;}
+  #beneficios{ background:var(--white); }
+  .grid5{ display:grid; grid-template-columns:repeat(5,1fr); gap:24px; align-items: center; }
+  .grid5 .card:nth-child(even) { transform: translateY(20px); }
+  #beneficios .card{ text-align:center; padding: 32px 20px; background: var(--bg-soft); border-radius: 20px; border: 1px solid var(--border); transition: all 0.3s ease; }
+  #beneficios .card:hover { background: var(--white); box-shadow: 0 15px 30px rgba(8, 12, 27, 0.06); border-bottom: 4px solid var(--brand-primary); }
+  .icon-badge{ width:56px; height:56px; border-radius:14px; background:var(--brand-light); color:var(--brand-primary); display:flex; align-items:center; justify-content:center; font-size:26px; margin:0 auto 20px auto; }
+  #beneficios .card h3 { font-size: 18px; margin-bottom: 8px;}
+  #beneficios .card p { font-size: 14.5px; margin: 0; line-height: 1.5;}
 
   /* PARA QUIEN */
-  #para-quien{background:var(--bg-soft); text-align:center;}
-  #para-quien ul{
-    list-style:none;
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:center;
-    gap:12px;
-    max-width:760px;
-    margin:0 auto;
-  }
-  #para-quien ul li{
-    background:var(--white);
-    border:1px solid var(--border);
-    padding:10px 20px;
-    border-radius:24px;
-    font-size:14.5px;
-    color:var(--navy);
-    font-weight:600;
-  }
+  #para-quien{ background:var(--navy); text-align:center; position: relative; }
+  #para-quien .section-head h2 { color: var(--white); }
+  #para-quien .eyebrow { color: #A0ABC0; justify-content: center;}
+  #para-quien ul{ list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:16px; max-width:900px; margin:0 auto; }
+  #para-quien ul li{ background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); padding:14px 28px; border-radius:100px; font-size:16px; color:var(--white); font-weight:500; transition: all 0.3s ease; }
+  #para-quien ul li:hover { background: var(--brand-primary); border-color: var(--brand-primary); transform: translateY(-2px); }
 
   /* CONTACTO */
-  #contacto{
-    background:linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%);
-    color:var(--white);
-  }
-  #contacto .inner{
-    display:grid;
-    grid-template-columns:1.1fr 1fr;
-    gap:48px;
-    align-items:start;
-  }
-  #contacto h2{color:var(--white); text-align:left;}
-  #contacto h3{color:#DCE7FF;}
-  #contacto > .wrap > p{display:none;}
-  #contacto .copy p{color:#E7EFFF; font-size:16px; margin-bottom:16px;}
-  #contacto .form-card{
-    background:var(--white);
-    color:var(--text);
-    border-radius:14px;
-    padding:32px;
-  }
-  #contacto .form-card h3{color:var(--dark); margin-bottom:6px;}
-  #contacto .form-card > p{margin-bottom:20px; font-size:14.5px;}
-  .field{margin-bottom:16px;}
-  .field label{
-    display:block;
-    font-size:13.5px;
-    font-weight:700;
-    color:var(--dark);
-    margin-bottom:6px;
-  }
-  .field input,
-  .field select,
-  .field textarea{
-    width:100%;
-    padding:11px 12px;
-    border:1px solid #D5D5D5;
-    border-radius:5px;
-    font-size:15px;
-    font-family:inherit;
-    color:var(--text);
-  }
-  .field textarea{resize:vertical; min-height:70px;}
-  form .btn{width:100%; text-align:center; margin-top:6px;}
-  .form-note{font-size:12.5px; color:var(--muted); margin-top:14px;}
+  #contacto{ background:var(--bg-soft); }
+  #contacto .inner{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap: 80px; align-items: start; }
+  .contact-copy h3 { margin-top: 40px; font-size: 24px; }
+  
+  .whatsapp-box { background: var(--white); border: 1px solid var(--border); padding: 32px; border-radius: 20px; margin-top: 40px; box-shadow: 0 10px 30px rgba(8, 12, 27, 0.03); position: relative; overflow: hidden; }
+  .whatsapp-box::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #25D366; }
+  .whatsapp-box h4 { font-size: 18px; margin-bottom: 8px; color: var(--navy); }
+  .whatsapp-box p { font-size: 15px; margin-bottom: 20px;}
+  .btn-whatsapp { display: inline-flex; align-items: center; gap: 12px; background: #25D366; color: white; padding: 14px 28px; border-radius: 100px; font-weight: 600; font-size: 16px; transition: transform 0.2s; }
+  .btn-whatsapp:hover { transform: translateY(-2px); }
 
-  /* SITE FOOTER (igual al de grupoecuacopia.com) */
-  .site-footer .top{
-    background:#EBEBEB;
-    padding:50px 0 34px 0;
+  .form-card{ background:var(--white); border-radius:24px; padding:48px; box-shadow: 0 20px 50px rgba(8, 12, 27, 0.06); border: 1px solid var(--border); }
+  .form-card h3{font-size: 28px;}
+  .field{margin-bottom:20px;}
+  .field label{ display:block; font-size:14px; font-weight:600; color:var(--navy); margin-bottom:8px; }
+  .field input, .field select, .field textarea{ width:100%; padding:16px; background: var(--bg-soft); border:1px solid transparent; border-radius:12px; font-size:15px; font-family:inherit; transition: all 0.3s ease; }
+  .field input:focus, .field textarea:focus { background: var(--white); border-color: var(--brand-primary); outline: none; box-shadow: 0 0 0 4px var(--brand-light); }
+  .field textarea{resize:vertical; min-height:100px;}
+  form .btn{width:100%; margin-top:16px; padding: 18px;}
+  .form-note{font-size:13px; color:var(--muted); margin-top:20px; text-align: center;}
+
+  /* FOOTER */
+  .site-footer { display: block; position: static; z-index: auto; width: 100%; font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; font-size: 16px; font-weight: 400; color: rgb(0, 0, 0); background-color: rgb(255, 255, 255); }
+  .site-footer .top { padding: 60px 0 40px 0; background-color: rgb(255, 255, 255); }
+  .site-footer .top .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1.2fr; gap: 30px; }
+  .site-footer .top img { height: 40px; margin-bottom: 16px; }
+  .site-footer .top p { font-size: 14px; color: rgb(0, 0, 0); margin-bottom: 8px;}
+  .site-footer .top h4 { font-size: 14px; font-weight: 700; color: rgb(0, 0, 0); margin-bottom: 16px; text-transform: uppercase; }
+  .site-footer .top ul { list-style: none; padding: 0; margin: 0; }
+  .site-footer .top ul li { margin-bottom: 12px; }
+  .site-footer .top ul li a { font-size: 14px; color: rgb(0, 0, 0); transition: color 0.2s ease; }
+  .site-footer .top ul li a:hover { color: var(--brand-primary); }
+  .site-footer .phone { display: block; margin: 16px 0 16px 0; font-weight: 700; color: rgb(0, 0, 0); font-size: 16px; }
+  .site-footer .social { display: flex; gap: 12px; }
+  .site-footer .social a { width: 36px; height: 36px; border-radius: 50%; background: rgb(0, 0, 0); color: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; font-size: 14px; transition: background 0.2s ease; }
+  .site-footer .social a:hover { background: var(--brand-primary); }
+  .site-footer .bottom { background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); padding: 24px 0; text-align: center; font-size: 13px; border-top: 1px solid #ECECEC;}
+  .site-footer .bottom strong { color: rgb(0, 0, 0); }
+
+  @media (max-width:1024px){
+    .bento-1 { flex-direction: column; }
+    .bento-1-image { width: 100%; height: 320px; }
+    .bento-1-image::before { top: 0; left: 0; right: 0; width: 100%; height: 100px; background: linear-gradient(to bottom, #050B14, transparent); }
+    #contacto .inner { grid-template-columns: 1fr; }
+    .grid5 { grid-template-columns: repeat(3, 1fr); }
+    .grid5 .card:nth-child(even) { transform: none; }
   }
-  .site-footer .top .wrap{
-    display:grid;
-    grid-template-columns:1.4fr 1fr 1fr 1.2fr;
-    gap:30px;
-  }
-  .site-footer .top img{height:40px; margin-bottom:14px;}
-  .site-footer .top p{font-size:13px; color:#555;}
-  .site-footer .top h4{
-    font-size:13px;
-    font-weight:800;
-    color:var(--dark);
-    text-transform:uppercase;
-    margin-bottom:14px;
-  }
-  .site-footer .top ul li{margin-bottom:10px;}
-  .site-footer .top ul li a{font-size:13.5px; color:#444;}
-  .site-footer .top ul li a:hover{color:var(--red);}
-  .site-footer .phone{
-    display:block;
-    margin:16px 0 14px 0;
-    font-weight:800;
-    color:var(--dark);
-    font-size:15px;
-  }
-  .site-footer .social{display:flex; gap:12px;}
-  .site-footer .social a{
-    width:32px; height:32px; border-radius:50%;
-    background:var(--dark); color:#fff;
-    display:flex; align-items:center; justify-content:center;
-    font-size:14px;
-  }
-  .site-footer .bottom{
-    background:#222222;
-    color:#B5B5B5;
-    padding:18px 0;
-    text-align:center;
-    font-size:12.5px;
-  }
-  .site-footer .bottom strong{color:#fff;}
   @media (max-width:860px){
-    .site-footer .top .wrap{grid-template-columns:1fr 1fr;}
+    .hero-inner { grid-template-columns: 1fr; gap: 40px;}
+    .hero-visuals { order: -1; height: 350px; }
+    .solucion-grid { grid-template-columns: 1fr; }
+    .bento-grid { grid-template-columns: 1fr; }
+    .grid5 { grid-template-columns: repeat(2, 1fr); }
+    .site-footer .top .wrap { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width:600px){
-    .site-footer .top .wrap{grid-template-columns:1fr;}
-  }
-
-  @media (max-width:860px){
-    .grid3{grid-template-columns:1fr;}
-    #beneficios .grid5{grid-template-columns:repeat(2,1fr);}
-    #contacto .inner{grid-template-columns:1fr;}
-    h1{font-size:30px;}
-    h2{font-size:24px;}
+    .site-footer .top .wrap { grid-template-columns: 1fr; }
+    .grid5 { grid-template-columns: 1fr; }
+    .bento-1-content { padding: 40px 24px; }
+    .hero-copy h1 { font-size: 2.2rem; }
   }
 </style>
 </head>
 <body>
 
 <header class="site-header">
-  <div class="wrap">
-    <a href="https://grupoecuacopia.com/" class="brand">
+  
+  <div class="header-center">
+    <a href="https://grupoecuacopia.com/" class="header-logo">
       <img src="https://grupoecuacopia.com/images/w_1280,f_png/shared/logo-header.png" alt="Grupo Ecuacopia">
     </a>
-    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">☰</button>
-    <nav id="siteNav">
-      <a href="https://grupoecuacopia.com/quienes-somos">Acerca de</a>
-      <a href="https://grupoecuacopia.com/equipos-ricoh">Ricoh</a>
-      <a href="https://grupoecuacopia.com/plus-it-hardware">Plus IT</a>
-      <a href="https://grupoecuacopia.com/tienda">Comprar</a>
-      <a href="https://grupoecuacopia.com/noticias-de-actualidad">Noticias</a>
-      <a href="https://grupoecuacopia.com/contactanos">Contáctanos</a>
+    
+    <nav class="header-nav" id="siteNav">
+      <a href="https://grupoecuacopia.com/quienes-somos">
+        ACERCA DE 
+        <svg class="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </a>
+      <a href="https://grupoecuacopia.com/equipos-ricoh">
+        RICOH 
+        <svg class="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </a>
+      <a href="https://solucionesecuacopia.netlify.app/">
+        SOLUCIONES
+        <svg class="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </a>
+      <a href="https://grupoecuacopia.com/tienda">COMPRAR</a>
+      <a href="https://grupoecuacopia.com/noticias-de-actualidad">NOTICIAS</a>
+      <a href="https://grupoecuacopia.com/contactanos">
+        CONTÁCTANOS 
+        <svg class="icon-down" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"></polyline></svg>
+      </a>
     </nav>
-    <a href="https://grupoecuacopia.com/servicio-tecnico" class="btn soporte-btn">Soporte</a>
+    <button class="mobile-menu-btn" id="menuToggle" aria-label="Abrir menú">☰</button>
+  </div>
+
+  <div class="header-right">
+    <a href="https://grupoecuacopia.com/servicio-tecnico" style="color: white; display: flex; align-items: center; gap: 12px; font-weight: 700; font-size: 14px; letter-spacing: 0.5px;">
+      <svg viewBox="0 0 24 24">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+      </svg>
+      SOPORTE
+    </a>
   </div>
 </header>
 
-<header id="hero">
+<section id="hero">
   <div class="wrap hero-inner">
-    <div class="hero-card">
-      <h1>Convierte documentos en decisiones, no en trabajo manual</h1>
+    <div class="hero-copy">
+      <h1>Convierte documentos en <span>decisiones</span>, no en trabajo manual</h1>
       <p class="lead">Automatiza la gestión documental de tu empresa con Inteligencia Artificial. Digitaliza, organiza, encuentra y procesa información en segundos desde una única plataforma segura.</p>
-      <ul>
-        <li>✅ Menos tareas manuales</li>
-        <li>✅ Respuestas más rápidas</li>
-        <li>✅ Mayor control y trazabilidad</li>
-        <li>✅ Información lista para usar</li>
+      
+      <ul class="hero-checklist">
+        <li>Menos tareas manuales</li>
+        <li>Respuestas más rápidas</li>
+        <li>Mayor control y trazabilidad</li>
+        <li>Información lista para usar</li>
       </ul>
+      
       <a href="#contacto" class="btn">Solicita una demo gratuita</a>
     </div>
-    <div class="hero-img">
-      <img src="https://img.magnific.com/free-photo/male-entrepreneur-writing-business-report-while-using-digital-tablet-office_637285-813.jpg" alt="Profesional revisando documentos digitales en tablet">
+    
+    <div class="hero-visuals">
+      <div class="scanner-laser"></div>
+      <!-- 📸 IMAGEN 1 (HERO MAIN) -->
+      <img src="https://assets.rbl.ms/65426629/origin.jpg" alt="SID Ecuacopia">
+      <div class="floating-badge">SID Ecuacopia</div>
     </div>
   </div>
-</header>
+</section>
 
 <section id="desafios">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">El problema</span>
       <h2>¿Tu empresa enfrenta alguno de estos desafíos?</h2>
       <p>Muchas organizaciones siguen perdiendo tiempo y recursos por procesos documentales manuales.</p>
     </div>
-    <ul>
-      <li>Encontrar un documento puede tomar más tiempo del necesario.</li>
-      <li>La información está dispersa entre correos, carpetas y sistemas diferentes.</li>
-      <li>Facturas, contratos y solicitudes se retrasan por procesos manuales de aprobación.</li>
-      <li>El crecimiento de la empresa viene acompañado de más documentos y menos control.</li>
-      <li>El personal dedica horas a digitar información que ya existe en los documentos.</li>
-    </ul>
-    <p class="closing">La buena noticia es que puedes automatizar todo el ciclo documental.</p>
+    
+    <div class="desafios-grid">
+      <div class="desafio-card"><div class="desafio-card-icon">⏱</div><div>Encontrar un documento puede tomar más tiempo del necesario.</div></div>
+      <div class="desafio-card"><div class="desafio-card-icon">🗂</div><div>La información está dispersa entre correos, carpetas y sistemas diferentes.</div></div>
+      <div class="desafio-card"><div class="desafio-card-icon">⏳</div><div>Facturas, contratos y solicitudes se retrasan por procesos manuales de aprobación.</div></div>
+      <div class="desafio-card"><div class="desafio-card-icon">📈</div><div>El crecimiento de la empresa viene acompañado de más documentos y menos control.</div></div>
+      <div class="desafio-card"><div class="desafio-card-icon">⌨️</div><div>El personal dedica horas a digitar información que ya existe en los documentos.</div></div>
+    </div>
+    <p class="desafios-closing"><span class="shimmer-text">La buena noticia es que puedes automatizar todo el ciclo documental.</span></p>
   </div>
 </section>
 
 <section id="solucion">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">La solución</span>
-      <h2>Una solución completa para transformar tus documentos en información útil</h2>
+      <h2>Una solución para transformar tus documentos en información útil</h2>
     </div>
-    <div class="grid3">
+    
+    <div class="solucion-grid">
       <div class="card">
-        <div class="card-img"><img src="https://img.magnific.com/free-photo/woman-using-office-printer-front-view_23-2149628805.jpg" alt="Digitalización de documentos físicos en oficina"></div>
-        <h3>Digitalización Inteligente</h3>
-        <p>Transformamos documentos físicos en información digital organizada y accesible.</p>
-        <p>Digitalizamos contratos, expedientes, facturas, formularios, documentos legales y mucho más, garantizando disponibilidad, seguridad y consulta inmediata.</p>
+        <div class="step-num">01</div>
+        <div class="card-content">
+          <div class="card-img">
+            <!-- 📸 IMAGEN 2 (SOLUCIONES 1) -->
+            <img src="https://assets.rbl.ms/65426631/origin.jpg" alt="Digitalización Inteligente">
+          </div>
+          <h3>Digitalización Inteligente</h3>
+          <p>Transformamos documentos físicos en información digital organizada y accesible.</p>
+          <p>Digitalizamos contratos, expedientes, facturas, formularios, documentos legales y mucho más, garantizando disponibilidad y seguridad.</p>
+        </div>
       </div>
       <div class="card">
-        <div class="card-img"><img src="https://img.magnific.com/free-photo/digital-filing-storage_1048-12068.jpg" alt="Gestión documental y archivo digital centralizado"></div>
-        <h3>Gestión Documental</h3>
-        <p>Toda tu información centralizada en un solo lugar.</p>
-        <p>Organiza, almacena, controla versiones y accede a tus documentos desde cualquier lugar con permisos y trazabilidad completa.</p>
-        <p>Encuentra cualquier documento en segundos, no en horas.</p>
+        <div class="step-num">02</div>
+        <div class="card-content">
+          <div class="card-img">
+            <!-- 📸 IMAGEN 3 (SOLUCIONES 2) -->
+            <img src="https://www.ricoh-americalatina.com/media-library/image.jpg?id=32902807&width=980" alt="Gestión Documental">
+          </div>
+          <h3>Gestión Documental</h3>
+          <p>Toda tu información centralizada en un solo lugar.</p>
+          <p>Organiza, almacena, controla versiones y accede a tus documentos desde cualquier lugar con trazabilidad completa. Encuentra todo en segundos.</p>
+        </div>
       </div>
       <div class="card">
-        <div class="card-img"><img src="https://img.magnific.com/free-photo/two-business-colleagues-examining-documents-while-working-together-office_637285-1081.jpg" alt="Equipo revisando flujo de aprobación de documentos"></div>
-        <h3>Automatización de Procesos</h3>
-        <p>Elimina tareas repetitivas y acelera aprobaciones.</p>
-        <p>Diseñamos flujos automatizados para la recepción, validación, revisión, aprobación y archivo de documentos, reduciendo tiempos y errores operativos.</p>
-        <p>Los documentos llegan automáticamente a la persona correcta, en el momento correcto.</p>
+        <div class="step-num">03</div>
+        <div class="card-content">
+          <div class="card-img">
+            <!-- 📸 IMAGEN 4 (SOLUCIONES 3) -->
+            <img src="https://www.ricoh-americalatina.com/media-library/ricoh-streamline-nx-v3-scan-capture-option.jpg?id=32377825&width=2000&height=1500&quality=50&coordinates=21%2C0%2C711%2C0" alt="Automatización Ricoh">
+          </div>
+          <h3>Automatización</h3>
+          <p>Elimina tareas repetitivas y acelera aprobaciones.</p>
+          <p>Diseñamos flujos automatizados para la recepción, validación, revisión y archivo de documentos. Reducimos tiempos y errores operativos.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -495,43 +482,55 @@
 <section id="ia">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Inteligencia Artificial</span>
       <h2>IA aplicada a tus documentos</h2>
     </div>
-    <div class="ia-banner">
-      <img src="https://img.magnific.com/free-photo/admin-data-center-using-artificial-intelligence-tech-tablet_482257-120768.jpg" alt="Especialista usando inteligencia artificial para gestionar documentos">
-    </div>
-    <div class="grid3">
-      <div class="card">
-        <div class="icon-badge" style="margin:0 0 14px 0;">🧠</div>
-        <h3>Procesamiento Inteligente (IDP)</h3>
-        <p>Haz que tus documentos trabajen por ti. La IA identifica, clasifica y extrae automáticamente la información clave de:</p>
-        <ul>
-          <li>Facturas</li>
-          <li>Contratos</li>
-          <li>Formularios</li>
-          <li>Órdenes de compra</li>
-          <li>Expedientes</li>
-          <li>Documentos de identidad</li>
-        </ul>
-        <p>Sin digitación manual y con validaciones automáticas que garantizan mayor precisión.</p>
+    
+    <div class="bento-grid">
+      <div class="bento-item bento-1">
+        <div class="bento-1-content">
+          <span style="font-size: 32px; display: inline-block; margin-bottom: 16px;">🧠</span>
+          <h3>Procesamiento Inteligente (IDP)</h3>
+          <p>Haz que tus documentos trabajen por ti. La IA identifica, clasifica y extrae automáticamente la información clave de:</p>
+          <ul class="ia-list">
+            <li>Facturas</li><li>Órdenes de compra</li><li>Contratos</li>
+            <li>Expedientes</li><li>Formularios</li><li>Documentos de identidad</li>
+          </ul>
+          <p style="margin-bottom: 0;">Sin digitación manual y con validaciones automáticas que garantizan mayor precisión.</p>
+        </div>
+        <div class="bento-1-image">
+          <!-- 📸 IMAGEN 5 (IA BENTO OSCURO) -->
+          <img src="https://images.unsplash.com/photo-1555421689-491a97ff2040?auto=format&fit=crop&w=800&q=80" alt="Panel inteligente">
+        </div>
       </div>
-      <div class="card">
-        <div class="icon-badge" style="margin:0 0 14px 0;">💬</div>
+      
+      <!-- BENTO: Búsqueda conversacional -->
+      <div class="bento-item bento-chat">
+        <div class="bento-chat-icon">💬</div>
         <h3>Busca como si hablaras con una persona</h3>
-        <p>Olvídate de navegar entre miles de archivos. Simplemente realiza preguntas como:</p>
-        <ul>
-          <li>"Muéstrame las facturas pendientes de aprobación."</li>
-          <li>"¿Qué contratos vencen este mes?"</li>
-          <li>"Resume los documentos del proveedor XYZ."</li>
-        </ul>
-        <p>Obtén respuestas inmediatas respetando los permisos y niveles de acceso de cada usuario.</p>
+        <p>Olvídate de navegar entre miles de archivos. Simplemente pregunta:</p>
+        <div class="chat-bubbles">
+          <div class="bubble bubble-user">"Muéstrame las facturas pendientes de aprobación."</div>
+          <div class="bubble bubble-ai">✅ Encontré <strong>12 facturas</strong> pendientes.</div>
+          <div class="bubble bubble-user">"¿Qué contratos vencen este mes?"</div>
+          <div class="bubble bubble-ai">📋 Hay <strong>3 contratos</strong> próximos a vencer.</div>
+        </div>
       </div>
-      <div class="card">
-        <div class="icon-badge" style="margin:0 0 14px 0;">⚡</div>
+
+      <!-- BENTO: Implementación rápida -->
+      <div class="bento-item bento-speed">
+        <div class="bento-speed-header">
+          <span class="speed-badge">⚡ Sin código</span>
+          <span class="speed-badge">🚀 En días</span>
+          <span class="speed-badge">✅ Sin IT</span>
+        </div>
         <h3>Implementación simple y rápida</h3>
         <p>No necesitas programadores ni proyectos complejos.</p>
-        <p>Configuramos modelos de extracción y automatización de forma visual para que tu organización obtenga resultados en menos tiempo y con menor complejidad.</p>
+        <div class="speed-steps">
+          <div class="speed-step"><span class="step-dot">1</span>Analizamos tu proceso actual</div>
+          <div class="speed-step"><span class="step-dot">2</span>Configuramos los modelos visualmente</div>
+          <div class="speed-step"><span class="step-dot">3</span>Tu equipo empieza a usar el sistema</div>
+        </div>
+        <p class="speed-note">Resultados visibles desde el primer día.</p>
       </div>
     </div>
   </div>
@@ -540,121 +539,87 @@
 <section id="beneficios">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow">Resultados</span>
-      <h2>Beneficios para tu empresa</h2>
+      <h2>Resultados para tu empresa</h2>
     </div>
     <div class="grid5">
-      <div class="card">
-        <div class="icon-badge">⏱</div>
-        <h3>Ahorra tiempo</h3>
-        <p>Reduce la búsqueda de documentos, la digitación manual y las tareas repetitivas.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">📈</div>
-        <h3>Incrementa la productividad</h3>
-        <p>Tu equipo dedica más tiempo a actividades estratégicas y menos a procesos administrativos.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">🗂</div>
-        <h3>Control total</h3>
-        <p>Conoce en todo momento dónde está cada documento y quién realizó cada acción.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">🔐</div>
-        <h3>Mayor seguridad</h3>
-        <p>Protege la información con permisos, trazabilidad y controles de acceso.</p>
-      </div>
-      <div class="card">
-        <div class="icon-badge">📊</div>
-        <h3>Escalabilidad</h3>
-        <p>Gestiona miles o millones de documentos sin perder eficiencia.</p>
-      </div>
+      <div class="card"><div class="icon-badge">⏱</div><h3>Ahorra tiempo</h3><p>Reduce la búsqueda de documentos y la digitación manual.</p></div>
+      <div class="card"><div class="icon-badge">📈</div><h3>Productividad</h3><p>Tu equipo dedica tiempo a la estrategia, no a la administración.</p></div>
+      <div class="card"><div class="icon-badge">🗂</div><h3>Control total</h3><p>Conoce dónde está cada documento y quién realizó cada acción.</p></div>
+      <div class="card"><div class="icon-badge">🔐</div><h3>Seguridad</h3><p>Protege la información con permisos y controles de acceso.</p></div>
+      <div class="card"><div class="icon-badge">📊</div><h3>Escalabilidad</h3><p>Gestiona miles de documentos sin perder eficiencia operativa.</p></div>
     </div>
   </div>
 </section>
 
 <section id="para-quien">
   <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow">¿Para quién es?</span>
-      <h2>Ideal para empresas que manejan información crítica</h2>
-    </div>
+    <div class="section-head"><h2>Ideal para empresas que manejan información crítica</h2></div>
     <ul>
-      <li>Finanzas y contabilidad</li>
-      <li>Compras y abastecimiento</li>
-      <li>Talento humano</li>
-      <li>Operaciones</li>
-      <li>Legal y cumplimiento</li>
-      <li>Cooperativas y entidades financieras</li>
-      <li>Instituciones públicas</li>
-      <li>Empresas de cualquier sector</li>
+      <li>Finanzas y contabilidad</li><li>Compras y abastecimiento</li><li>Talento humano</li><li>Operaciones</li>
+      <li>Legal y cumplimiento</li><li>Cooperativas y financieras</li><li>Instituciones públicas</li><li>Cualquier sector</li>
     </ul>
   </div>
 </section>
 
 <section id="contacto">
-  <div class="wrap">
-    <div class="inner">
-      <div class="copy">
-        <h2>Lleva tu gestión documental al siguiente nivel</h2>
-        <p>Descubre cómo la Inteligencia Artificial puede ayudarte a reducir tiempos, eliminar procesos manuales y obtener mayor control sobre tu información.</p>
-        <h3>Agenda una demostración gratuita</h3>
-        <p>Un especialista de ECUACOPIA analizará tu proceso actual y te mostrará cómo automatizarlo de manera segura y eficiente.</p>
+  <div class="wrap inner">
+    <div class="contact-copy">
+      <h2>Lleva tu gestión documental al siguiente nivel</h2>
+      <p>Descubre cómo la Inteligencia Artificial puede ayudarte a reducir tiempos, eliminar procesos manuales y obtener mayor control sobre tu información.</p>
+      
+      <h3>Agenda una demostración gratuita</h3>
+      <p>Un especialista de ECUACOPIA analizará tu proceso actual y te mostrará cómo automatizarlo de manera segura y eficiente.</p>
+      
+      <div class="whatsapp-box">
+        <h4>¿Prefieres escribirnos directamente?</h4>
+        <p>Chatea con nuestro equipo de tecnología para una respuesta rápida.</p>
+        <a href="https://wa.me/59325005555" target="_blank" class="btn-whatsapp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          Escribir por WhatsApp
+        </a>
       </div>
+    </div>
 
-      <div class="form-card">
-        <h3>Solicitar Demo</h3>
-        <p>Completa el formulario y un especialista te contactará en menos de 24 horas.</p>
+    <div class="form-card">
+      <h3>Solicitar Demo</h3>
+      <p style="margin-bottom: 24px; color: var(--muted); font-size: 14.5px;">Completa el formulario y un especialista te contactará en menos de 24 horas.</p>
 
-        <!--
-          FORMULARIO WEB-TO-LEAD DE SALESFORCE
-          ------------------------------------
-          Reemplaza el valor de "oid" por el de tu organización de Salesforce
-          antes de publicar esta página. Para obtenerlo (necesitas permiso de
-          administrador): Configuración > Personalizar > Leads > Web-to-Lead >
-          Crear formulario Web-to-Lead. Ahí seleccionas los campos que quieres
-          capturar (ya están puestos los más comunes abajo) y Salesforce te
-          entrega el "oid" real y la URL de acción correctos. Reemplaza también
-          "retURL" por la URL de agradecimiento que quieras mostrar tras el envío.
-        -->
-        <form action="https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8" method="POST">
-          <input type="hidden" name="oid" value="REEMPLAZAR_CON_TU_OID">
-          <input type="hidden" name="retURL" value="https://grupoecuacopia.com/gracias">
-          <input type="hidden" name="lead_source" value="Landing - Automatización IA Documental">
+      <!-- 🚀 FORMULARIO CONFIGURADO CON FORMSPREE 🚀 -->
+      <form action="https://formspree.io/f/xrpbdolq" method="POST">
+        
+        <div class="field">
+          <label for="first_name">Nombre</label>
+          <input id="first_name" name="first_name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="last_name">Apellido</label>
+          <input id="last_name" name="last_name" type="text" required>
+        </div>
+        <div class="field">
+          <label for="company">Empresa</label>
+          <input id="company" name="company" type="text" required>
+        </div>
+        <div class="field">
+          <label for="email">Correo</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+        <div class="field">
+          <label for="phone">Teléfono</label>
+          <input id="phone" name="phone" type="tel">
+        </div>
+        <div class="field">
+          <label for="description">Cuéntanos brevemente tu necesidad (opcional)</label>
+          <textarea id="description" name="description"></textarea>
+        </div>
 
-          <div class="field">
-            <label for="first_name">Nombre</label>
-            <input id="first_name" maxlength="40" name="first_name" type="text" required>
-          </div>
-          <div class="field">
-            <label for="last_name">Apellido</label>
-            <input id="last_name" maxlength="80" name="last_name" type="text" required>
-          </div>
-          <div class="field">
-            <label for="company">Empresa</label>
-            <input id="company" maxlength="40" name="company" type="text" required>
-          </div>
-          <div class="field">
-            <label for="email">Correo</label>
-            <input id="email" maxlength="80" name="email" type="email" required>
-          </div>
-          <div class="field">
-            <label for="phone">Teléfono</label>
-            <input id="phone" maxlength="40" name="phone" type="tel">
-          </div>
-          <div class="field">
-            <label for="description">Cuéntanos brevemente tu necesidad (opcional)</label>
-            <textarea id="description" maxlength="255" name="description"></textarea>
-          </div>
-
-          <button class="btn" type="submit">Solicitar Demo Gratuita</button>
-        </form>
-        <p class="form-note">Al enviar este formulario aceptas ser contactado por un asesor de Ecuacopia. Tus datos se procesan conforme a nuestra política de privacidad.</p>
-      </div>
+        <button class="btn" type="submit">Solicitar Demo Gratuita</button>
+      </form>
+      <p class="form-note">Al enviar este formulario aceptas ser contactado por un asesor de Ecuacopia. Tus datos se procesan conforme a nuestra política de privacidad.</p>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer class="site-footer">
   <div class="top">
     <div class="wrap">
@@ -676,7 +641,7 @@
           <li><a href="https://grupoecuacopia.com/servicios-ricoh">Servicios</a></li>
           <li><a href="https://grupoecuacopia.com/equipos-ricoh">Equipos</a></li>
         </ul>
-        <h4 style="margin-top:20px;">Plus IT</h4>
+        <h4 style="margin-top:24px;">Plus IT</h4>
         <ul>
           <li><a href="https://grupoecuacopia.com/plus-it-hardware">Hardware</a></li>
           <li><a href="https://plusit.tech">Soluciones</a></li>
@@ -712,7 +677,19 @@
   var siteNav = document.getElementById('siteNav');
   if (menuToggle && siteNav) {
     menuToggle.addEventListener('click', function () {
-      siteNav.classList.toggle('open');
+      if (siteNav.style.display === 'flex') {
+        siteNav.style.display = 'none';
+      } else {
+        siteNav.style.display = 'flex';
+        siteNav.style.flexDirection = 'column';
+        siteNav.style.position = 'absolute';
+        siteNav.style.top = '100%';
+        siteNav.style.left = '0';
+        siteNav.style.right = '0';
+        siteNav.style.background = 'white';
+        siteNav.style.padding = '20px';
+        siteNav.style.borderBottom = '1px solid #ECECEC';
+      }
     });
   }
 </script>
